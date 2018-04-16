@@ -1,0 +1,19 @@
+
+- name: Install kibana
+  yum:
+    name: kibana
+    state: present
+
+- name: Setup kibana service
+  service:
+    name: '{{ kibana_service_name }}'
+    state: '{{ kibana_service_state }}'
+    enabled: '{{ kibana_service_enabled }}'
+
+- name: Provide kibana config
+  template:
+    src: kibana.yml.j2
+    dest: /etc/kibana/kibana.yml
+  notify: restart kibana
+
+- meta: flush_handlers
