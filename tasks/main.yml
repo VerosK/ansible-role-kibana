@@ -17,3 +17,7 @@
   notify: restart kibana
 
 - meta: flush_handlers
+
+- wait_for:
+    port: '{{ kibana_http_port }}'
+    timeout: 30
